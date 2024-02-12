@@ -1,0 +1,56 @@
+<%- include('../partials/header') -%>
+<h1>Today is <%= justNow %></h1>
+<div class="date-navigation">
+    <ul>
+        <li><a href="/bookings/0">Today</a></li>
+        <% nextDays.forEach((day, index) => { %>
+            <li><a href="/bookings/<%= index + 1 %>"><%= day %></a></li>
+        <% }); %>
+    </ul>
+</div>
+
+
+
+
+
+
+<hr>
+
+<h1>Bookings <%= formattedDate %> <%= dayOfWeek %></h1>
+<div class="date-navigation">
+    
+    <a href="/bookings/1">Go Forward</a>
+   
+</div>
+
+<div class="container">
+    <% availableSlots.forEach(item => { %>
+        <div class="card">
+            <h2>Play <%= item.sport %></h2>
+            <p>Available Slots: <%= item.slots %></p>
+            <button class="btn" onclick="showBookingAlert('<%= item.sport %>')">Book Now</button>
+        </div>
+    <% }); %>
+</div>
+
+<!-- JavaScript for SweetAlert -->
+<script>
+
+
+</script>
+
+
+<%- include('../partials/footer') -%>
+
+
+
+<hr>
+<form action="/booknow" method="post">
+    <input name="name" placeholder="name">
+    <input name="email" placeholder="email">
+    <input name="phone" placeholder="phone" type="number">
+    <input name="preferred" placeholder="Preferred Table" type="number">
+   
+</form>   
+
+<%- include('../partials/footer') -%>

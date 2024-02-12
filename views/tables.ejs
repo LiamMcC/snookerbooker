@@ -1,0 +1,309 @@
+
+<%- include('../partials/header') -%>
+
+
+
+<main>
+
+    <h1>Bookings <%= formattedDate %> <%= dayOfWeek %></h1>
+<div class="date-navigation">
+    
+    <div class="date-navigation">
+        <ul>
+            <li><a href="/tables/0">Today</a></li>
+            <% nextDays.forEach((day, index) => { %>
+                <li><a href="/tables/<%= index + 1 %>"><%= day %></a></li>
+            <% }); %>
+        </ul>
+    </div>
+   
+</div>
+
+<hr>
+
+<% tableData.forEach(item => { %>
+    <div class="card">
+        <h2>Table No: <%= item.id %></h2>
+        <p>Plays: <%= item.tableType %></p>
+        <button class="btn" onclick="showBookingAndSaveAlert('<%= item.id %>', '<%= item.tableType %>')">Book Table 1</button>
+        
+    </div>
+<% }); %>
+
+<!-- Hidden container for time slots -->
+<div id="timeSlotsContainer" style="display: none;">
+    <% slotData.forEach((time) => { %>
+        <div class="time-slot" data-time="<%= time.gametime %>">
+            <%= time.gametime %>
+        </div>
+    <% }); %>
+</div>
+
+
+<!-- Correct Sweet Alert For Both Functions -->
+<script>
+function showBookingAndSaveAlert(tableNumber, tableSport) {
+    // Make an AJAX request to fetch the available time slots for the selected table
+    fetch(`/xxx/${tableNumber}?date=<%= formattedDate %>&day=<%= dayOfWeek %>`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch time slots.');
+            }
+            return response.json();
+        })
+        .then(timeSlots => {
+            if (timeSlots.length === 0) {
+                // If no time slots are available, hide the input fields and display a message
+                Swal.fire({
+                    title: 'Fully Booked',
+                    text: 'This table is fully booked for the selected date and time. Please choose another table or date.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            // Generate HTML content for the SweetAlert dialog with the fetched time slots
+            const slotDivs = timeSlots.map(slot => `
+                <div class="time-slot" data-time="${slot}">${slot}</div>
+            `).join('');
+
+            // Create HTML content for input fields
+            const inputFields = `
+                <input id="name" name="name" placeholder="Name" class="swal-input">
+                <input id="email" name="email" placeholder="Email" class="swal-input">
+                <input id="phone" name="phone" placeholder="Phone" class="swal-input" type="number">
+            `;
+
+            // Display SweetAlert dialog with time slot divs and input fields
+            Swal.fire({
+                html: `
+                    <p>Available Time Slots for ${tableSport} Table ${tableNumber}</p>
+                    <p><%= dayOfWeek %> <%= formattedDate %></p>
+                    ${slotDivs}
+                    ${inputFields}
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Book',
+                cancelButtonText: 'Cancel',
+                didOpen: () => {
+                    // Add event listeners to time slot divs
+                    document.querySelectorAll('.time-slot').forEach(slot => {
+                        slot.addEventListener('click', () => {
+                            // Toggle the selected class on the clicked time slot
+                            slot.classList.toggle('selected');
+                        });
+                    });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Get the selected time slots
+                    const selectedSlots = Array.from(document.querySelectorAll('.time-slot.selected')).map(slot => slot.dataset.time);
+
+                    // If no time slots are selected, display an error message
+                    if (selectedSlots.length === 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please select at least one time slot.',
+                        });
+                        return;
+                    }
+
+                    // Prepare data for POST request
+                    const bookingData = {
+                        dayOfWeek: '<%= dayOfWeek %>',
+                        formattedDate: '<%= formattedDate %>',
+                        tableNumber: tableNumber,
+                        timeSlots: selectedSlots,
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                    };
+
+                    // Make AJAX POST request to save booking
+                    fetch('/bookings', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(bookingData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to save booking.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Booking Successful!',
+                            text: 'Your booking has been confirmed.'
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error saving booking:', error);
+                        // Show error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Failed to save booking. Please try again later.'
+                        });
+                    });
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching time slots:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to fetch time slots. Please try again later.'
+            });
+        });
+}
+
+
+
+</script>
+
+<!--End correct alert -->
+
+
+
+
+
+
+
+<!-- JavaScript for SweetAlert -->
+<script>
+    function showTimeSlotsAlert(tableNumber) {
+        // Get the time slots container
+        const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+
+        // Extract time slot divs from the container
+        const slotDivs = timeSlotsContainer.innerHTML;
+
+        // Display SweetAlert dialog with time slot divs
+        Swal.fire({
+            title: 'Select Time Slots',
+            html: "<h1>Table:" + tableNumber + "</h1><p><%= dayOfWeek %> <%= formattedDate %></p>" + slotDivs,
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+            didOpen: () => {
+                // Add event listeners to time slot divs
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.addEventListener('click', () => {
+                        // Toggle the selected class on the clicked time slot
+                        slot.classList.toggle('selected');
+                    });
+                });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Get the selected time slots
+                const selectedSlots = Array.from(document.querySelectorAll('.time-slot.selected')).map(slot => slot.dataset.time);
+
+                // Make AJAX request to save booking
+                saveBooking(tableNumber, selectedSlots);
+            }
+        });
+    }
+
+    function saveBooking(tableNumber, selectedSlots) {
+        // Prepare data for POST request
+        const bookingData = {
+            dayOfWeek: '<%= dayOfWeek %>',
+            formattedDate: '<%= formattedDate %>',
+            tableNumber: tableNumber,
+            timeSlots: selectedSlots
+        };
+
+        // Make AJAX POST request
+        fetch('/bookings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Booking Successful!',
+                text: 'Your booking has been confirmed.'
+            });
+        })
+        .catch(error => {
+            console.error('Error saving booking:', error);
+            // Show error message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to save booking. Please try again later.'
+            });
+        });
+    }
+
+
+
+
+    function showBookingAlert(tableNumber) {
+    // Make an AJAX request to fetch the available time slots for the selected table
+    fetch(`/xxx/${tableNumber}?date=<%= formattedDate %>&day=<%= dayOfWeek %>`)
+        .then(response => response.json())
+        .then(timeSlots => {
+            // Generate HTML content for the SweetAlert dialog with the fetched time slots
+            const slotDivs = timeSlots.map(slot => `
+                <div class="time-slot" data-time="${slot}">${slot}</div>
+            `).join('');
+
+            // Display SweetAlert dialog with time slot divs
+            Swal.fire({
+                title: `Available Time Slots for Table ${tableNumber}`,
+                html: "<p><%= dayOfWeek %> <%= formattedDate %></p>" + slotDivs,
+                showCancelButton: true,
+                confirmButtonText: 'Book',
+                cancelButtonText: 'Cancel',
+                
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform booking logic if the user confirms
+                    // You can handle the booking logic here
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching time slots:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to fetch time slots. Please try again later.' + error
+            });
+        });
+}
+
+
+</script>
+
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('../partials/footer') -%>
