@@ -4,6 +4,8 @@ var app = express();
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
+
+
 var db = require('./db');
 // set the template engine 
 app.set('view engine', 'ejs'); 
@@ -11,7 +13,11 @@ app.set('view engine', 'ejs');
 const path = require('path');
 
 app.use(express.static("views")); 
+app.use(express.static("sass")); 
+app.use(express.static("sass")); 
+app.use(express.static("css")); 
 app.use(express.static("images"));  
+app.use(express.static("webfonts"));  
 app.use(express.static("js")); 
 app.use(express.static("style")); 
 app.use(express.static("partials")); 

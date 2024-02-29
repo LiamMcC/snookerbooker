@@ -96,6 +96,122 @@ function acceptCookie(req, res, next) {
    }
  }
 
+
+ router.get('/admin', function(req, res) {
+  const currentRoute = req.url; // or any logic to determine the current route
+  
+  function formatDate(date) {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`; // Format date as yyyy-mm-dd for SQL
+  }
+  
+  // Get today's date
+  const today = new Date();
+  
+  // Format today's date
+  const formattedDate = formatDate(today);
+  console.log("Today's Date:", formattedDate);
+
+var date = new Date()
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+  const year = date.getFullYear();
+  var theRightOne = `${day}/${month}/${year}`;
+  console.log("Today's Date Liam Style:", theRightOne);
+
+
+  
+  let sql = 'SELECT id FROM bookings WHERE whatdate = ? LIMIT 1'; // Get the ID of the first entry for today's date
+  db.query(sql, [theRightOne], (err, result) => {  
+
+      if (err) {
+          // Handle error
+          console.error(err);
+          res.redirect('/error'); // Redirect to error page
+      } else {
+          const firstId = result[0].id; // Get the ID of the first entry
+          console.log(firstId)
+          // Now retrieve all entries where the ID is greater than or equal to the first ID
+          let sqlEntries = 'SELECT * FROM bookings WHERE Id >= ? ORDER BY id DESC';
+          db.query(sqlEntries, [firstId], (err, entries) => {
+              if (err) {
+                  // Handle error
+                  console.error(err);
+                  res.redirect('/error'); // Redirect to error page
+              } else {
+                  res.render('admin', { result: entries, currentRoute, user: req.user });
+              }
+          });
+      }
+  });
+});
+
+
+
+
+
+// admin with expanded dates
+  router.get('/newadmin', function(req, res) {
+    const currentRoute = req.url; // or any logic to determine the current route
+    
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`; // Format date as yyyy-mm-dd for SQL
+    }
+    
+    // Get today's date
+    const today = new Date();
+    
+    // Format today's date
+    const formattedDate = formatDate(today);
+    console.log("Today's Date:", formattedDate);
+    
+    let sql = 'SELECT * FROM bookings WHERE DAY(whatdate) >= ? AND (MONTH(whatdate) > ? OR (MONTH(whatdate) = ? AND YEAR(whatdate) > ?))';
+    let query = db.query(sql, [today.getDate(), today.getMonth() + 1, today.getMonth() + 1, today.getFullYear()], (err, result) => {  
+        if (err) {
+            // Handle error
+            console.error(err);
+            res.redirect('/error'); // Redirect to error page
+        } else {
+            res.render('admin', { result, currentRoute, user: req.user });
+        }
+    });
+});
+
+
+
+
+
+router.get('/your-api-endpoint/:itemId', (req, res) => {
+  // Retrieve itemId from request parameters
+  const itemId = parseInt(req.params.itemId);
+  
+  // SQL query to fetch item from bookedslots table
+  const sql = `SELECT * FROM bookedslots WHERE bookingId = ?
+              `;
+  
+  // Execute SQL query with itemId as parameter
+  db.query(sql, [itemId], (err, results) => {
+    if (err) {
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      // If item is found, send it as JSON response
+      res.json(results);
+    } else {
+      // If item is not found, send 404 Not Found response
+      res.status(404).json({ error: 'Item not found' });
+    }
+  });
+});
+
 // Deny Permission for actions that are not allowed
 
 router.get('/deniedpermission', isLoggedIn,function(req, res, next) {

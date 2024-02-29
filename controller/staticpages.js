@@ -139,7 +139,12 @@ router.get('/careful', function(req, res){
     });
 });
 
-
+router.get('/test', function(req, res){
+  
+    
+      res.render('test');
+  
+});
 
 
 // ****************** Error Route 

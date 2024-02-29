@@ -1,298 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Snooker Booker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<%- include('../partials/header') -%>
+
+<style>
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;background: #222;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+</style>
+</head>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="/poolball.png" style="width:60%">
+  <a href="/tables/0" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a href="/admin" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>ADMIN</p>
+  </a>
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <p>ABOUT</p>
+  </a>
+  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>PHOTOS</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>CONTACT</p>
+  </a>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="/tables/0" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
+    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo"><span class="w3-hide-small">Snooker</span>Booker</h1>
+    <p>Pool Hall Booking System.</p>
+    <img src="/poolball.png" alt="boy" class="w3-image" width="30%" >
+  </header>
+
+  <!-- About Section -->
+  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
+    <h2 class="w3-text-light-grey">Booking Made Easy</h2>
+    <hr style="width:200px" class="w3-opacity">
+    <p>
+      A convenient snooker table booking system provides users with a seamless experience to schedule their games effortlessly. By leveraging intuitive user interfaces accessible through both desktop and mobile devices, players can easily browse available tables, select preferred time slots, and make reservations with just a few clicks. Such a system offers real-time updates on table availability, allowing users to plan their games efficiently and avoid unnecessary wait times. Additionally, features like personalized accounts, automated reminders, and secure online payments enhance the user experience further, ensuring smooth and hassle-free bookings. With its user-friendly interface and comprehensive functionality, a convenient snooker table booking system simplifies the process of scheduling games, making it an indispensable tool for enthusiasts and venue operators alike.
+    </p>
 
 
-
-<main>
-
-    <h1>Bookings <%= formattedDate %> <%= dayOfWeek %></h1>
-<div class="date-navigation">
     
-    <div class="date-navigation">
-        <ul>
-            <li><a href="/tables/0">Today</a></li>
-            <% nextDays.forEach((day, index) => { %>
-                <li><a href="/tables/<%= index + 1 %>"><%= day %></a></li>
-            <% }); %>
-        </ul>
-    </div>
-   
-</div>
 
-<hr>
 
-<% tableData.forEach(item => { %>
-    <div class="card">
-        <h2>Table No: <%= item.id %></h2>
-        <p>Plays: <%= item.tableType %></p>
-        <button class="btn" onclick="showBookingAndSaveAlert('<%= item.id %>', '<%= item.tableType %>')">Book Table 1</button>
+    <h2>Pick A Day</a></h2>
+    <p>
+      
+        <a href="/tables/0" class="minimal-button">Today</a>
+        <% nextDays.forEach((day, index) => { %>
+          <a href="/tables/<%= index + 1 %>" class="minimal-button"><%= day %></a>
+        <% }); %>
+      
+    
+    </p>
+  
+
+<h3 class="w3-padding-16 w3-text-light-grey">Bookings <br><%= dayOfWeek %> <%= formattedDate %></h3>
+
+	<div class="white-bar">
+		<div class="black-box-container">
+			<% tableData.forEach(item => { %>
+				<div class="black-box">
+					<p class="white-text">Table No: <%= item.id %></p>
+					<% if (item.tableType === "Snooker") { %>
+            <span style="color: red;">Plays: <%= item.tableType %></span><br>
+        <% } else { %>
+            <span style="color: green;">Plays: <%= item.tableType %></span><br>
+        <% } %>
         
-    </div>
-<% }); %>
+					<button class="w3-button w3-light-grey w3-padding-large w3-section" onclick="showBookingAndSaveAlert('<%= item.id %>', '<%= item.tableType %>')">Book</button>
+				</div>
+			<% }); %>
+		</div>
+		
+	</div>
+	
+	
+	<script>
+		$(document).ready(function() {
+			$(".left-btn").on("click", function() {
+				$(".black-box-container").animate({scrollLeft: "-=200px"}, "slow");
+			});
+	
+			$(".right-btn").on("click", function() {
+				$(".black-box-container").animate({scrollLeft: "+=200px"}, "slow");
+			});
+		});
+	</script>
 
-<!-- Hidden container for time slots -->
-<div id="timeSlotsContainer" style="display: none;">
-    <% slotData.forEach((time) => { %>
-        <div class="time-slot" data-time="<%= time.gametime %>">
-            <%= time.gametime %>
-        </div>
-    <% }); %>
+
+
+		
+
+ 
+
+    
+  
+  <!-- Portfolio Section -->
+  <div class="w3-padding-64 w3-content" id="photos">
+    <h2 class="w3-text-light-grey">Play With Us</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <!-- Grid for photos -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-half">
+        <img src="/billiardback.jpg" style="width:100%">
+        <img src="/snookerback.jpg" style="width:100%">
+        <img src="/snookerballs.jpg" style="width:100%">
+      </div>
+
+      <div class="w3-half">
+        <img src="/playback.jpg" style="width:100%">
+        <img src="/poolballs.jpg" style="width:100%">
+        <img src="/snookerback.jpg" style="width:100%">
+       
+      </div>
+    <!-- End photo grid -->
+    </div>
+  <!-- End Portfolio Section -->
+  </div>
+
+  <!-- Contact Section -->
+  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+    <h2 class="w3-text-light-grey">Contact Us</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <div class="w3-section">
+      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Navan, Co. Meath</p>
+      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +1234567</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: mail@mail.com</p>
+    </div><br>
+    <p>Let's get in touch. Send me a message:</p>
+
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+  <!-- End Contact Section -->
+  </div>
+  
+    <!-- Footer -->
+  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+  <!-- End footer -->
+  </footer>
+
+<!-- END PAGE CONTENT -->
 </div>
+
+
+
 
 
 <!-- Correct Sweet Alert For Both Functions -->
 <script>
-function showBookingAndSaveAlert(tableNumber, tableSport) {
-    // Make an AJAX request to fetch the available time slots for the selected table
-    fetch(`/xxx/${tableNumber}?date=<%= formattedDate %>&day=<%= dayOfWeek %>`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch time slots.');
-            }
-            return response.json();
-        })
-        .then(timeSlots => {
-            if (timeSlots.length === 0) {
-                // If no time slots are available, hide the input fields and display a message
-                Swal.fire({
-                    title: 'Fully Booked',
-                    text: 'This table is fully booked for the selected date and time. Please choose another table or date.',
-                    icon: 'info',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
-
-            // Generate HTML content for the SweetAlert dialog with the fetched time slots
-            const slotDivs = timeSlots.map(slot => `
-                <div class="time-slot" data-time="${slot}">${slot}</div>
-            `).join('');
-
-            // Create HTML content for input fields
-            const inputFields = `
-                <input id="name" name="name" placeholder="Name" class="swal-input">
-                <input id="email" name="email" placeholder="Email" class="swal-input">
-                <input id="phone" name="phone" placeholder="Phone" class="swal-input" type="number">
-            `;
-
-            // Display SweetAlert dialog with time slot divs and input fields
-            Swal.fire({
-                html: `
-                    <p>Available Time Slots for ${tableSport} Table ${tableNumber}</p>
-                    <p><%= dayOfWeek %> <%= formattedDate %></p>
-                    ${slotDivs}
-                    ${inputFields}
-                `,
-                showCancelButton: true,
-                confirmButtonText: 'Book',
-                cancelButtonText: 'Cancel',
-                didOpen: () => {
-                    // Add event listeners to time slot divs
-                    document.querySelectorAll('.time-slot').forEach(slot => {
-                        slot.addEventListener('click', () => {
-                            // Toggle the selected class on the clicked time slot
-                            slot.classList.toggle('selected');
-                        });
-                    });
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Get the selected time slots
-                    const selectedSlots = Array.from(document.querySelectorAll('.time-slot.selected')).map(slot => slot.dataset.time);
-
-                    // If no time slots are selected, display an error message
-                    if (selectedSlots.length === 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Please select at least one time slot.',
-                        });
-                        return;
-                    }
-
-                    // Prepare data for POST request
-                    const bookingData = {
-                        dayOfWeek: '<%= dayOfWeek %>',
-                        formattedDate: '<%= formattedDate %>',
-                        tableNumber: tableNumber,
-                        timeSlots: selectedSlots,
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        phone: document.getElementById('phone').value,
-                    };
-
-                    // Make AJAX POST request to save booking
-                    fetch('/bookings', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(bookingData)
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to save booking.');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Show success message
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Booking Successful!',
-                            text: 'Your booking has been confirmed.'
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error saving booking:', error);
-                        // Show error message
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Failed to save booking. Please try again later.'
-                        });
-                    });
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching time slots:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Failed to fetch time slots. Please try again later.'
-            });
-        });
-}
-
-
-
-</script>
-
-<!--End correct alert -->
-
-
-
-
-
-
-
-<!-- JavaScript for SweetAlert -->
-<script>
-    function showTimeSlotsAlert(tableNumber) {
-        // Get the time slots container
-        const timeSlotsContainer = document.getElementById('timeSlotsContainer');
-
-        // Extract time slot divs from the container
-        const slotDivs = timeSlotsContainer.innerHTML;
-
-        // Display SweetAlert dialog with time slot divs
-        Swal.fire({
-            title: 'Select Time Slots',
-            html: "<h1>Table:" + tableNumber + "</h1><p><%= dayOfWeek %> <%= formattedDate %></p>" + slotDivs,
-            showCancelButton: true,
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-            didOpen: () => {
-                // Add event listeners to time slot divs
-                document.querySelectorAll('.time-slot').forEach(slot => {
-                    slot.addEventListener('click', () => {
-                        // Toggle the selected class on the clicked time slot
-                        slot.classList.toggle('selected');
-                    });
-                });
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Get the selected time slots
-                const selectedSlots = Array.from(document.querySelectorAll('.time-slot.selected')).map(slot => slot.dataset.time);
-
-                // Make AJAX request to save booking
-                saveBooking(tableNumber, selectedSlots);
-            }
-        });
-    }
-
-    function saveBooking(tableNumber, selectedSlots) {
-        // Prepare data for POST request
-        const bookingData = {
-            dayOfWeek: '<%= dayOfWeek %>',
-            formattedDate: '<%= formattedDate %>',
-            tableNumber: tableNumber,
-            timeSlots: selectedSlots
-        };
-
-        // Make AJAX POST request
-        fetch('/bookings', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(bookingData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Show success message
-            Swal.fire({
-                icon: 'success',
-                title: 'Booking Successful!',
-                text: 'Your booking has been confirmed.'
-            });
-        })
-        .catch(error => {
-            console.error('Error saving booking:', error);
-            // Show error message
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Failed to save booking. Please try again later.'
-            });
-        });
-    }
-
-
-
-
-    function showBookingAlert(tableNumber) {
-    // Make an AJAX request to fetch the available time slots for the selected table
-    fetch(`/xxx/${tableNumber}?date=<%= formattedDate %>&day=<%= dayOfWeek %>`)
-        .then(response => response.json())
-        .then(timeSlots => {
-            // Generate HTML content for the SweetAlert dialog with the fetched time slots
-            const slotDivs = timeSlots.map(slot => `
-                <div class="time-slot" data-time="${slot}">${slot}</div>
-            `).join('');
-
-            // Display SweetAlert dialog with time slot divs
-            Swal.fire({
-                title: `Available Time Slots for Table ${tableNumber}`,
-                html: "<p><%= dayOfWeek %> <%= formattedDate %></p>" + slotDivs,
-                showCancelButton: true,
-                confirmButtonText: 'Book',
-                cancelButtonText: 'Cancel',
-                
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Perform booking logic if the user confirms
-                    // You can handle the booking logic here
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching time slots:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Failed to fetch time slots. Please try again later.' + error
-            });
-        });
-}
-
-
-</script>
-
-
-</main>
+  function showBookingAndSaveAlert(tableNumber, tableSport) {
+      // Make an AJAX request to fetch the available time slots for the selected table
+      fetch(`/xxx/${tableNumber}?date=<%= formattedDate %>&day=<%= dayOfWeek %>`)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Failed to fetch time slots.');
+              }
+              return response.json();
+          })
+          .then(timeSlots => {
+              if (timeSlots.length === 0) {
+                  // If no time slots are available, hide the input fields and display a message
+                  Swal.fire({
+                      title: 'Fully Booked',
+                      text: 'This table is fully booked for the selected date and time. Please choose another table or date.',
+                      icon: 'info',
+                      confirmButtonText: 'OK'
+                  });
+                  return;
+              }
+  
+              // Generate HTML content for the SweetAlert dialog with the fetched time slots
+              const slotDivs = timeSlots.map(slot => `
+                  <div class="time-slot" data-time="${slot}">${slot}</div>
+              `).join('');
+  
+              // Create HTML content for input fields
+              const inputFields = `
+                  <input id="name" name="name" placeholder="Your Name" class="nice-input">
+                  <input id="email" name="email" placeholder="Email" class="nice-input">
+                  <input id="phone" name="phone" placeholder="Phone" class="nice-input" type="number">
+              `;
+  
+              // Display SweetAlert dialog with time slot divs and input fields
+              Swal.fire({
+                  html: `
+                      <p style="text-align: center;">Available Time Slots for:<br> ${tableSport} Table ${tableNumber}</p>
+                      <p style="text-align: center;"><%= dayOfWeek %> <%= formattedDate %></p>
+                      ${slotDivs}
+                      ${inputFields}
+                      `,
+                  showCancelButton: true,
+                  confirmButtonText: 'Book',
+                  cancelButtonText: 'Cancel',
+  
+      confirmButtonColor: '#4CAF50', // Green for confirm button
+      cancelButtonColor: '#f44336', // Red for cancel button
+      confirmButtonStyle: 'padding: 2px 2px; border: none;width:40%; border-radius: 5px; cursor: pointer; margin-right: 10px;', // You can add more inline styles as needed
+      cancelButtonStyle: 'padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;',
+                  didOpen: () => {
+                      // Add event listeners to time slot divs
+                      document.querySelectorAll('.time-slot').forEach(slot => {
+                          slot.addEventListener('click', () => {
+                              // Toggle the selected class on the clicked time slot
+                              slot.classList.toggle('selected');
+                          });
+                      });
+                  }
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Get the selected time slots
+                      const selectedSlots = Array.from(document.querySelectorAll('.time-slot.selected')).map(slot => slot.dataset.time);
+  
+                      // If no time slots are selected, display an error message
+                      if (selectedSlots.length === 0) {
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Please select at least one time slot.',
+                          });
+                          return;
+                      }
+  
+                      // Prepare data for POST request
+                      const bookingData = {
+                          dayOfWeek: '<%= dayOfWeek %>',
+                          formattedDate: '<%= formattedDate %>',
+                          tableNumber: tableNumber,
+                          timeSlots: selectedSlots,
+                          name: document.getElementById('name').value,
+                          email: document.getElementById('email').value,
+                          phone: document.getElementById('phone').value,
+                      };
+  
+                      // Make AJAX POST request to save booking
+                      fetch('/bookings', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify(bookingData)
+                      })
+                      .then(response => {
+                          if (!response.ok) {
+                              throw new Error('Failed to save booking.');
+                          }
+                          return response.json();
+                      })
+                      .then(data => {
+                          // Show success message
+                          Swal.fire({
+                              icon: 'success',
+                              title: 'Booking Successful!',
+                              text: 'Your booking has been confirmed.'
+                          });
+                      })
+                      .catch(error => {
+                          console.error('Error saving booking:', error);
+                          // Show error message
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Failed to save booking. Please try again later.'
+                          });
+                      });
+                  }
+              });
+          })
+          .catch(error => {
+              console.error('Error fetching time slots:', error);
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Failed to fetch time slots. Please try again later.'
+              });
+          });
+  }
+  
+  
+  
+  </script>
+  
+  <!--End correct alert -->
+</body>
+</html>
 
 
 
@@ -306,4 +354,8 @@ function showBookingAndSaveAlert(tableNumber, tableSport) {
 
 
 
-<%- include('../partials/footer') -%>
+
+
+
+
+

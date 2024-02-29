@@ -1,0 +1,82 @@
+.carousel-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  background-color: white;
+  padding: 20px;
+}
+
+.carousel {
+  display: inline-flex;
+}
+
+.carousel > div {
+  flex: 0 0 auto;
+  width: calc(25% - 20px); /* Adjust this value to control the number of items shown */
+  margin-right: 20px; /* Adjust spacing between items */
+}
+
+.carousel > div:last-child {
+  margin-right: 0;
+}
+
+
+/* stay above this line */
+
+
+.swal-input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.swal-input[type="number"]::-webkit-inner-spin-button,
+.swal-input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.swal-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.swal-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+.button-list {
+  overflow: hidden; /* Hide overflowing content */
+  max-height: 0; /* Initially collapse the list */
+  transition: max-height 1s ease-out; /* Smooth transition for sliding effect */
+  margin-left: 20%;
+  width:40%; 
+}
+
+.button-list.open {
+  max-height: 400px;
+  margin-left: 20%;
+  width:40%; /* Adjust the maximum height as needed */
+}
+
+
+
+/* Default styling for time slot divs */
+.time-slot {
+    background-color: #ccc; /* Grey background */
+    color: #fff; /* White text color */
+    padding: 10px; /* Padding for spacing */
+    margin: 5px; /* Margin for spacing */
+    cursor: pointer; /* Cursor style */
+    border-radius: 5px; /* Rounded corners */
+    width: 20%;
+    display:inline-block;
+}
+
+/* Styling for selected time slot div */
+.time-slot.selected {
+    background-color: #4CAF50; /* Green background */
+}
