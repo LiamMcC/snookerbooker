@@ -25,47 +25,16 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </head>
 <body class="w3-black">
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <img src="/poolball.png" style="width:60%">
-  <a href="/tables/0" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="/admin" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ADMIN</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PHOTOS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="/tables/0" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
-</div>
+
+
+
 
 <!-- Page Content -->
 <div class="w3-padding-large" id="main">
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">Snooker</span>Booker</h1>
+    <h1 class="w3-jumbo"><span class="w3-hide-small">J-Macs Pool Club</span></h1>
     <p>Pool Hall Booking System.</p>
     <img src="/poolball.png" alt="boy" class="w3-image" width="30%" >
   </header>
@@ -85,9 +54,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <h2>Pick A Day</a></h2>
     <p>
       
-        <a href="/tables/0" class="minimal-button">Today</a>
+        <a href="/tables/0/j-macs-pool-club" class="minimal-button">Today</a>
         <% nextDays.forEach((day, index) => { %>
-          <a href="/tables/<%= index + 1 %>" class="minimal-button"><%= day %></a>
+          <a href="/tables/<%= index + 1 %>/j-macs-pool-club" class="minimal-button"><%= day %></a>
         <% }); %>
       
     
@@ -288,6 +257,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
                           name: document.getElementById('name').value,
                           email: document.getElementById('email').value,
                           phone: document.getElementById('phone').value,
+                          club: "J-Macs Pool Club"
                       };
   
                       // Make AJAX POST request to save booking

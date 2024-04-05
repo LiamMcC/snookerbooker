@@ -1,0 +1,81 @@
+
+<div class="footer">
+    <div class="footer-div">
+  
+      <div class="contact-form">
+          <h3>Contact Us</h3>
+          <form action="/contact" method="post">
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="fullname" required>
+  
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+  
+              <label for="comment">Comment:</label>
+              <textarea id="comment" name="comment" required></textarea>
+  
+              <label for="captcha">What Is The Capital Of Ireland?</label>
+              <!-- Your captcha input goes here --> 
+              <input type="text" id="name" name="verifybox" required>
+              <button type="submit">Submit</button>
+          </form>
+      </div>
+  
+    </div>
+  
+  
+  
+    <div class="footer-div">
+      <div class="social-media-links">
+          <ul class="social-icons">
+              <li><a href="/login"><i class="fa fa-pencil-square-o" style="font-size:36px"></i></a></li>
+              <li><a href="/register"><i class="fa fa-s15" style="font-size:36px"></i></a></li>
+              <li><a href="#"><i class="fa fa-road" style="font-size:36px"></i></a></li>
+              <!-- Add more social media icons as needed -->
+          </ul>
+          <ul class="additional-links" >
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/rejectcookie">Reject All Cookies</a></li>
+              <li><a href="/contact">Help & Support</a></li>
+              <!-- Add more links as needed -->
+          </ul>
+      </div>
+  
+    </div>
+      
+  </div>
+  
+
+
+ 
+              
+          </div>
+      </div>
+  
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('nav ul');
+  
+      menuToggle.addEventListener('click', function() {
+          navMenu.classList.toggle('open');
+          menuToggle.classList.toggle('open');
+      });
+  });
+  
+      </script>
+  
+  <% if (typeof cookies === 'undefined' || cookies.cookie_consent !== '1') { %>
+    <!-- Your cookie banner HTML code here -->
+    <div id="cookie-banner" class="cookie-banner">
+        <p>We use cookies to ensure you get the best experience on our website. By continuing to use our site, you consent to our use of cookies. 
+            <a href="/privacy">Learn more</a>
+          </p>
+          <form action="/acceptCookie" method="post">
+            <button id="accept-cookies">Accept</button>
+          </form>
+    </div>
+    <% } %>
+  </body>
+  </html>
+  

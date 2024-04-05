@@ -1,5 +1,42 @@
-<%- include('../partials/header') -%>
+<%- include('../partials/mainheader') -%>
+        <div class="container">
+           
+            <div class="content-wrapper">
+                <div class="flex-div">
+                    <h2>Get In Touch</h2>
+                    <img src="/contact.jpg" alt="Centered Image">
+                    <p>
+                        
+                        Have a question, feedback, or just want to say hello? We'd love to hear from you! Reach out to us using the form below, and we'll get back to you as soon as possible. Your input matters to us, so don't hesitate to drop us a line!
+                    </p>
 
-<h1>Contact Page</h1>
+                    <div class="contact-form">
+                       
+                        <form action="/contact" method="post">
+                            <p>Name:<br>
+                            <input type="text" id="name" name="fullname" required>
+                        </p>
+                            <p>Email:<br>
+                            <input type="email" id="email" name="email" required>
+                        </p>
+                        <p>Comment:<br>
+                            <textarea id="comment" name="comment" required></textarea>
+                        </p>
+                        <p>What Is The Capital Of Ireland?<br>
+                            <!-- Your captcha input goes here -->
+                            <input type="text" id="name" name="verifybox" required>
+                            </p>
+                            <p>
+                            <button type="submit">Submit</button>
+                        </p>
+                        </form>
+                    </div>
+                  
+                </div>
 
-<%- include('../partials/footer') -%>
+
+   
+           
+            </div>
+
+            <%- include('../partials/mainfooter') -%>

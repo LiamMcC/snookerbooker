@@ -1,0 +1,544 @@
+body, html {
+    margin: 0;
+    padding: 0;
+   
+    font-family: Arial, sans-serif; /* Fallback font */
+}
+
+.background {
+    background-color: #9b9696;
+    background-image: url('/snookerballs.jpg');  /* Specify the background image */
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.floating-header {
+    position: fixed;
+    top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background-color: #ecebeb; /* Grey background */
+    padding: 10px 20px; /* Adjust padding as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    z-index: 1000; /* Ensure header is above other content */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    min-height: 60px;
+}
+
+.logo {
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    
+    color: rgb(119, 117, 117); /* White font color */
+    font-weight: bold; /* Bold font weight */
+    font-size: 3.2em; /* Adjust font size as needed */
+}
+
+nav ul {
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-size: 28px;
+}
+
+nav ul li {
+    margin-right: 20px; /* Adjust spacing between navigation links */
+}
+
+nav ul li:last-child {
+    margin-right: 0; /* Remove margin from the last navigation link */
+}
+
+nav ul li a {
+    color: rgb(119, 117, 117); /* White font color */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+nav ul li a:hover {
+    color: #cccccc; /* Lighter grey on hover */
+}
+
+.container {
+    width: 80%;
+   /* background-color: rgba(255, 255, 255, 0.6);  Transparent white */
+    padding: 20px;
+    text-align: center;
+    min-height: 900px;
+    margin-top: 90px;
+}
+
+#main-heading {
+    color: rgb(218, 213, 213);
+    font-family: "Asset", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3em; /* Adjust as needed */
+    transition: font-size 0.5s ease; /* Add animation effect */
+}
+
+.subheading {
+    color: rgb(218, 213, 213);
+    font-family: 'Cursive Font Name', cursive; /* Use Google cursive font */
+}
+
+.content-wrapper {
+    background-color: #ffffff; /* White background */
+    width: 100%;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the first flex div */
+.flex-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style for the large blue heading */
+.flex-div h2 {
+    color: rgb(87, 87, 88);
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+   font-size: 2em;
+    font-style: normal;
+    margin-bottom: 20px;
+}
+
+/* Style for the centered image */
+.flex-div img {
+    display: block;
+    margin: 0 auto;
+    max-width: 40%; /* Ensure image doesn't exceed container width */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px;
+}
+
+/* Style for the centered paragraph */
+.flex-div p {
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+   font-size: 22px;
+    font-style: normal;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+/* Style for the blue button */
+.flex-div .blue-button {
+    background-color: rgb(87, 87, 88);
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    color: white;
+    font-size: 22px;
+    padding: 10px 20px;
+    border: none;
+    
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.flex-div .blue-button:hover {
+    background-color: darkblue;
+}
+
+/* Additional flex divs */
+.additional-flex-divs {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.additional-flex-divs .flex-div {
+    width: 30%; /* Adjust as needed */
+}
+
+.additional-flex-divs h2,
+.additional-flex-divs p {
+    margin-bottom: 10px;
+}
+
+.additional-flex-divs .blue-button {
+    margin-top: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #666666;
+}
+
+.footer-div {
+   text-align: center;
+    width: 50%; /* Occupies 50% width by default */
+}
+
+.social-media-links {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.social-icons-wrapper,
+.additional-links-wrapper {
+    flex: 1;
+}
+
+.social-icons,
+.additional-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icons li,
+.additional-links li {
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.social-icons a,
+.additional-links a {
+    text-decoration: none;
+    color: #ecebeb;
+}
+
+.social-icons i {
+    font-size: 36px;
+}
+
+.additional-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px; /* Adjust spacing between icons and links */
+}
+
+.additional-links li {
+    margin-bottom: 5px; /* Adjust spacing between links */
+}
+
+.additional-links a {
+    color: #ecebeb; /* Adjust link color */
+    text-decoration: none;
+    font-size: 16px; /* Adjust link font size */
+}
+
+.additional-links a:hover {
+    text-decoration: underline;
+}
+
+.contact-form {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.contact-form h3 {
+    margin-bottom: 10px;
+    color: #ecebeb;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    margin-bottom: 5px;
+    color: #ecebeb;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    background-color: rgb(57, 57, 58);
+    color: white;
+    border: none;
+    
+    cursor: pointer;
+}
+
+
+.registration-form {
+    width: 300px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color:rgb(71, 70, 70);
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #3b3b3b;
+    color: #fff;
+    border: none;
+  
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+.portfolio-container {
+    width:90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust alignment as needed */
+  }
+  
+  .portfolio-item {
+    width: calc(25% - 10px); /* Adjust width for two items across */
+    margin-bottom: 20px; /* Add spacing between items */
+    
+    min-height: 120px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adjust box shadow values */
+  }
+
+  .portfolio-item h2 {
+    color: rgb(87, 87, 88);
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+   font-size: 1.2em;
+    font-style: normal;
+    margin-bottom: 20px;
+}
+
+.portfolio-item p {
+    color: rgb(87, 87, 88);
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+   font-size: 1em;
+    font-style: normal;
+    margin-bottom: 20px;
+}
+
+.portfolio-item a {
+    text-decoration: none;
+}
+
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+}
+
+.cookie-banner p {
+    margin: 0;
+}
+
+.cookie-banner a {
+    color: blue; /* Adjust link color as needed */
+}
+
+.cookie-banner button {
+    background-color: #0056b3; /* Adjust button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.cookie-banner button:hover {
+    background-color: #003366; /* Adjust hover color */
+}
+
+@media screen and (min-width: 769px) {
+    .floating-header {
+        justify-content: space-between; /* Align logo to the left and nav to the right */
+    }
+
+    nav ul {
+        display: flex !important; /* Override the display property */
+        position: initial;
+        top: initial;
+        left: initial;
+        width: auto;
+        background-color: transparent; /* Remove background color */
+        box-shadow: none; /* Remove shadow */
+        border-radius: 0; /* Remove border radius */
+    }
+
+    nav ul li {
+        margin-right: 20px; /* Adjust margin for desktop view */
+    }
+
+    .menu-toggle {
+        display: none; /* Hide the menu toggle button on desktop */
+    }
+
+    
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .contact-form {
+        width: 100%; /* Set contact form width to 100% on small screens */
+    }
+    
+    .footer-links {
+        width: 100%; /* Set footer links width to 100% on small screens */
+    }
+
+    .floating-header {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    nav ul {
+        display: none; /* Hide the navigation links by default */
+        flex-direction: column; /* Stack the links vertically */
+        position: absolute;
+        top: 100%; /* Position the dropdown below the header */
+        left: 0;
+        width: 100%;
+        background-color: #808080; /* Grey background */
+       
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    }
+
+    nav ul.open {
+        display: flex; /* Show the navigation links when menu is open */
+    }
+
+    nav ul li {
+        margin-right: 0; /* Remove margin from the list items */
+        margin-bottom: 10px; /* Add some spacing between the links */
+    }
+
+    nav ul li:last-child {
+        margin-bottom: 0; /* Remove margin from the last list item */
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px 20px; /* Adjust padding as needed */
+        color: white; /* White font color */
+        text-decoration: none;
+        transition: background-color 0.3s ease; /* Smooth color transition on hover */
+    }
+
+    nav ul li a:hover {
+        background-color: #666666; /* Darker grey on hover */
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 1001; /* Ensure toggle button is above other content */
+        cursor: pointer;
+    }
+
+    .menu-toggle .bar {
+        width: 25px;
+        height: 3px;
+        background-color: white; /* White color for the bars */
+        display: block;
+        margin: 5px auto; /* Space between bars */
+        transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+    .menu-toggle.open .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px); /* Rotate and move first bar */
+    }
+
+    .menu-toggle.open .bar:nth-child(2) {
+        opacity: 0; /* Hide the middle bar */
+    }
+
+    .menu-toggle.open .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px); /* Rotate and move third bar */
+    }
+
+
+    .container {
+        width: 100%;
+       /* background-color: rgba(255, 255, 255, 0.6);  Transparent white */
+       
+        text-align: center;
+       
+    }
+
+    
+
+    .additional-flex-divs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .additional-flex-divs .flex-div {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column; /* Stack the divs vertically on small screens */
+    }
+    .footer-div {
+        width: 100%; /* Occupies 100% width on small screens */
+        margin-bottom: 20px; /* Add some space between stacked divs */
+    }
+
+    .contact-form {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+    }
+
+    .portfolio-item {
+        width: calc(50% - 10px); /* Adjust width for four items across */
+        
+      }
+}

@@ -1,17 +1,89 @@
+
+
 <footer>
-      
+  <div class="footer-links">
+      <a href="/">Main Site</a>
+      <a href="/about">About Us</a>
+      <a href="#" id="sweetAlertButton">Data Sharing & Privacy</a>
+      <a href="/contact">Contact</a>
+  </div>
+  <div class="copywrite">
+      &copy; <span id="copyrightYear"></span> BookItNow.Fun. All rights reserved.
+  </div>
 
-    <p>&copy; <span id="copyrightYear"></span> Liam McCabe</p>
+  <script>
+    // Get the current year
+    const currentYear = new Date().getFullYear();
 
-    <script>
-      // Get the current year
-      const currentYear = new Date().getFullYear();
+    // Set the current year in the HTML
+    document.getElementById('copyrightYear').innerText = currentYear;
+  </script>
+
+
+<script>
+  // Function to show SweetAlert
+  function showAlert() {
+      // Create SweetAlert modal
+      Swal.fire({
+          title: 'Privacy Statement',
+          html: `<p>
+    
+    At <em>BookItNow.fun</em>, we are committed to protecting your privacy and ensuring the security of your personal information. This privacy statement outlines how we collect, use, and safeguard your data.<br><br>
+
+    <strong>Information We Collect:</strong><br>
+    We collect only the data necessary to facilitate your booking with the relevant service provider. This may include but is not limited to:
+    <br><br>
+        Name<br>
+        Contact information (email address, phone number)<br>
+        
+       
+    <br>
+
+    <strong>Use of Information:</strong><br>
+    The information we collect is used solely for the purpose of making your reservation with the service provider of your choice. We do not share your information with third parties except those who require access to the data for the intended purpose. Your data is never sold or rented to any other parties.<br><br>
+
+    <strong>Data Retention:</strong><br>
+    We retain your personal information only for as long as necessary to fulfill the purpose for which it was collected and to comply with legal obligations. Once your reservation date has passed, your data is securely disposed of or anonymized to prevent any unauthorized access.<br><br>
+
+    <strong>Security Measures:</strong><br>
+    We employ industry-standard security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction. These measures include encryption, secure server infrastructure, access controls, and regular security assessments.<br><br>
+
+    <strong>Your Rights:</strong><br>
+    You have the right to access, update, or delete your personal information at any time. If you have any questions or concerns about the handling of your data, please contact us using the information provided below.<br><br>
+
+    <strong>Contact Us:</strong><br>
+    If you have any questions or concerns about our privacy practices or this privacy statement, please contact us using the contact form at the bottom of the page <em><a href="/" style="text-decoration: none;">Here</a></em>.<br><br>
+
+    By using our services, you consent to the collection and use of your information as described in this privacy statement.<br><br>
+
+    This privacy statement was last updated on <em>04 April 2024</em>. We may update this statement to reflect changes in our practices or legal requirements, so please check back periodically for updates.
+</p>
+`,
+          icon: 'info',
+          
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirm',
+         
+      });
+  }
+
+  // Attach event listener to the button
+  document.getElementById('sweetAlertButton').addEventListener('click', showAlert);
+
+
   
-      // Set the current year in the HTML
-      document.getElementById('copyrightYear').innerText = currentYear;
-    </script>
+</script>
+</footer>
 
-
-  </footer>
-</body>
-</html>
+<% if (typeof cookies === 'undefined' || cookies.cookie_consent !== '1') { %>
+  <!-- Your cookie banner HTML code here -->
+  <div id="cookie-banner" class="cookie-banner">
+      <p>We use cookies to ensure you get the best experience on our website. By continuing to use our site, you consent to our use of cookies. 
+          <a href="/privacy">Learn more</a>
+        </p>
+        <form action="/acceptCookie" method="post">
+          <button id="accept-cookies">Accept</button>
+        </form>
+  </div>
+  <% } %>

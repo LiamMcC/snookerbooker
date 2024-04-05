@@ -21,35 +21,72 @@ router.use((req, res, next) => {
 // function to render the home page
 router.get('/',  function(req, res){
   const currentRoute = req.url; // or any logic to determine the current route
-  
   // create title and description
-  var title = "Page Title Goes Heres" 
-  var description = "Description Goes Here"
-  
+  var title = "Online Pool Hall Booking System" 
+  var description = "Online Pool Hall Booking System"
   // render the page and send data for title and description
+  console.log("Cookie value:", req.cookies.cookie_consent);
   res.render('home', {title, description, currentRoute});    
   
   });
 
 
+  // function to render the home page
+router.get('/about',  function(req, res){
+  const currentRoute = req.url; // or any logic to determine the current route
+  // create title and description
+  var title = "Online Pool Hall Booking System" 
+  var description = "Online Pool Hall Booking System"
   
+  // render the page and send data for title and description
+  res.render('about', {user: req.user});    
+  
+  });
 
-
+  
+  router.get('/portfolio',  function(req, res){
+    const currentRoute = req.url; // or any logic to determine the current route
+    // create title and description
+    var title = "Online Pool Hall Booking System" 
+    var description = "Online Pool Hall Booking System"
+    
+    // render the page and send data for title and description
+    res.render('portfolio', {user: req.user});    
+    
+    });
+  
+    router.get('/services',  function(req, res){
+      const currentRoute = req.url; // or any logic to determine the current route
+      // create title and description
+      var title = "Online Pool Hall Booking System" 
+      var description = "Online Pool Hall Booking System"
+      
+      // render the page and send data for title and description
+      res.render('services', {user: req.user});    
+      
+      });
 
   
 router.get('/contact', function(req, res, err){
   const currentRoute = req.url;
  
-  if(err) {
-    res.redirect('/error'); // Redirect to error page
-  } else { 
-    res.render('contactus', {result, user: req.user, currentRoute, message});
-  }
+    res.render('contact', {user: req.user, currentRoute});
+
   });
 
 
+  router.get('/privacy', function(req, res, err){
+    const currentRoute = req.url;
+   
+      res.render('privacy', {user: req.user, currentRoute});
+  
+    });
+
+
+  
+
   router.post('/contact', function(req, res){
-         if (req.body.verifybox == "Madrid" || req.body.verifybox == "madrid" || req.body.verifybox == "MADRID" ) {
+         if (req.body.verifybox == "Dublin" || req.body.verifybox == "dublin" || req.body.verifybox == "DUBLIN" ) {
 
           if (!req.body.fullname || !req.body.email || !req.body.comment) {
             res.redirect('/missingdata')
@@ -96,6 +133,44 @@ router.get('/contact', function(req, res, err){
   
 // ****** End Email Contact Handlers
 
+// ***************** Cookie
+
+router.post('/acceptCookie', function(req, res) {
+console.log("Hello")
+  let options = {
+      maxAge: 1000 * 60 * 60 * 24 * 30 * 6// would expire after 6 months minutes
+      //httpOnly: true, // The cookie only accessible by the web server
+    // signed: true // Indicates if the cookie should be signed
+  }
+ 
+  res.cookie('cookie_consent', 1, options) // options is optional
+  //res.send('')
+
+
+ 
+  res.redirect(req.get('referer'));
+ //res.redirect('/');
+ });
+
+
+ router.get('/rejectCookie', function(req, res) {
+
+  let options = {
+      maxAge: 1000 * 60 * 5// would expire after 90 minutes
+      //httpOnly: true, // The cookie only accessible by the web server
+    // signed: true // Indicates if the cookie should be signed
+  }
+ 
+  res.cookie('cookie_consent', 0 , options) // options is optional
+  //res.send('')
+
+
+ 
+  res.redirect(req.get('referer'));
+ //res.redirect('/');
+ });
+
+
 // ****************** Error Route 
 
 router.get('/servererror', function(req, res){
@@ -139,53 +214,8 @@ router.get('/careful', function(req, res){
     });
 });
 
-router.get('/test', function(req, res){
-  
-    
-      res.render('test');
-  
-});
 
 
-// ****************** Error Route 
-
-
-// ***************** Cookie
-
-router.post('/acceptCookie', function(req, res) {
-
-  let options = {
-      maxAge: 1000 * 60 * 5// would expire after 90 minutes
-      //httpOnly: true, // The cookie only accessible by the web server
-    // signed: true // Indicates if the cookie should be signed
-  }
- 
-  res.cookie('cookie_consent', 1, options) // options is optional
-  //res.send('')
-
-
- 
-  res.redirect(req.get('referer'));
- //res.redirect('/');
- });
-
-
- router.get('/rejectCookie', function(req, res) {
-
-  let options = {
-      maxAge: 1000 * 60 * 5// would expire after 90 minutes
-      //httpOnly: true, // The cookie only accessible by the web server
-    // signed: true // Indicates if the cookie should be signed
-  }
- 
-  res.cookie('cookie_consent', 0 , options) // options is optional
-  //res.send('')
-
-
- 
-  res.redirect(req.get('referer'));
- //res.redirect('/');
- });
 
 
   module.exports = router;
